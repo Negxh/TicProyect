@@ -3,8 +3,13 @@ const controller = require('../controllers/apiClima.controller');
 
 
 
+router.get('/', controller.fastDirection);
 router.get('/getAll', controller.getAll);
 router.get('/getImportant', controller.getImportant);
+
+
+
+
 
 
 

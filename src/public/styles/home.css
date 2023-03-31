@@ -1,0 +1,36 @@
+.container-principal {
+    height: 100vh;
+    background-color: #2A6877;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid black;
+}
+
+.container-fuera {
+    height: 40rem;
+    width: 40rem;
+    background-color: #71A2AE;
+    /* border: 5px solid black; */
+    display: flex;
+    align-items: end;
+    border-radius: 2rem;
+}
+
+.container-dentro {
+    height: 30rem;
+    width: 35rem;
+    background-color: #fff;
+    margin-bottom: 2rem;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+.img-sun {
+    height: 20rem;
+    /* border: 5px solid black; */
+}
+
+.container-body {
+    transform: translateY(-10rem);
+}

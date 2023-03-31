@@ -1,7 +1,7 @@
 
 
 
-const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+// const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
 function cambiarFecha(fecha){
     
@@ -12,7 +12,7 @@ function cambiarFecha(fecha){
     
         let indexMes = arrayFecha[2] - 1;
     
-        const newFecha = arrayFecha[3] + " de " + meses[indexMes] + " del " + arrayFecha[0] + arrayFecha[1];
+        const newFecha = arrayFecha[3] + "-" + arrayFecha[2] + "-" + arrayFecha[0] + arrayFecha[1];
     
         // console.log(newFecha);
         return newFecha;

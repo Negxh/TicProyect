@@ -19,7 +19,7 @@ app.engine('hbs', exphbs.engine({
     partialaDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs'
 }));
-app.set('views engine', '.hbs');
+app.set('view engine', '.hbs');
 
 
 
