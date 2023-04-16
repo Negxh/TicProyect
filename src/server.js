@@ -6,9 +6,12 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const session = require('express-session');
 
+const http = require('http');
+
 // Inticializacion
 const app = express();
 
+const server = http.Server(app);
 
 // Settings 
 app.set('port', process.env.PORT || 3000);
@@ -33,12 +36,25 @@ app.use(session({
 }));
 
 
+//Mqtt
+var io = require('socket.io')(server);
+
+io.on('connect', function (socket) {
+    console.log('User conectado');
+
+    socket.on('message', function (data) {
+        console.log(data);
+        io.emit('message', data);
+    });
+})
+
 // Global variables
 
 
+//Module ESP8266 conection
+
 
 // Routes
-
 app.use(require('./routes/apiClima.routes'));
 
 

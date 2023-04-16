@@ -5,8 +5,10 @@ const controller = require('../controllers/apiClima.controller');
 
 router.get('/', controller.fastDirection);
 router.get('/getAll', controller.getAll);
-router.get('/getImportant', controller.getImportant);
+router.get('/getImportant/:region', controller.getImportant);
 
+router.post('/postWifiModulo', controller.postWifiModulo);
+// router.post('/buscarRegion', controller.buscarRegion)
 
 
 
@@ -16,3 +18,6 @@ router.get('/getImportant', controller.getImportant);
 
 
 module.exports = router;
+
+
+
