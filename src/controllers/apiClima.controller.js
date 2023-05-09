@@ -1,8 +1,9 @@
 const { json } = require("express");
 const openai = require("../config/apiChatgpt");
 const cambiarFecha = require('../helpers/helpFecha');
-const filtrarPorHora = require("../helpers/helpHora");
+const {filtrarPorHora} = require("../helpers/helpHora");
 const { PythonShell } = require('python-shell');
+const dbCtrl = require("./apiDB.controller");
 
 //API meteored.cl
 //user: xalen15315@marikuza.com
@@ -15,25 +16,34 @@ const apiCtrl = {};
 //variables que se mostraran luego (Las importantes)
 var variables = {};
 
-var idLocalidadBuscar = 18578
-
-
-function buscarRegion(region) {
-    fetch('https://www.meteored.cl/peticionBuscador.php?lang=cl&texto=' + region)
-        .then(response => response.json())
-        .then(data => idLocalidadBuscar = data.localidad[0].id)
-        .catch(error => console.error(error));
-}
 
 //Muestra los datos importantes a necesitar
 apiCtrl.getImportant = async (req, res) => {
 
     let variablesRes = {}
     let region = req.params.region;
+    var idLocalidadBuscar = 0;
 
-    buscarRegion(region)
+    console.log(region)
 
-    console.log('ID de', region,':',  idLocalidadBuscar)
+    try {
+
+        const responseRegion = await fetch('https://www.meteored.cl/peticionBuscador.php?lang=cl&texto=' + region)
+        const dataRegion = await responseRegion.json()
+        
+        console.log(dataRegion.localidad[0]) 
+
+        idLocalidadBuscar = dataRegion.localidad[0].id;
+        region = dataRegion.localidad[0].nombre;
+        
+        console.log('ID de', region, ':', idLocalidadBuscar)
+        
+        
+    }catch{
+        console.error('Error al llamar a la API:', error);
+    }
+    
+    
 
     try {
         const response = await fetch('http://api.meteored.cl/index.php?api_lang=cl&localidad=' + idLocalidadBuscar + '&affiliate_id=xg7hbvz367mm&v=3.0');
@@ -74,7 +84,7 @@ apiCtrl.getImportant = async (req, res) => {
             nameRegion: region
         }
 
-        console.log(variablesRes)
+        // console.log(variablesRes)
 
 
 
@@ -151,12 +161,49 @@ apiCtrl.fastDirection = async (req, res) => {
 
 apiCtrl.postWifiModulo = async (req, res) => {
 
-    console.log(req.body);
+    // console.log(req.body);
+
+    // dbCtrl.insertEspData(req);
+    // let datos = dbCtrl.traerTemperatura();
 
     return res.status(200).redirect('/');
 
 }
 
+apiCtrl.getTemperatura = async (req, res) => {
+
+
+    let datos = await dbCtrl.traerTemperatura();
+
+    return res.status(200).json(datos)
+}
+
+apiCtrl.crearPlanta = async (req, res) => {
+
+    dbCtrl.crearPlanta(req);
+
+    // console.log(req.body)
+
+    return res.status(200).send('HECHO');
+
+}
+
+
+apiCtrl.getAllPlantas = async (req, res) => {
+
+    let datos = await dbCtrl.traerPlantas();
+
+
+    return res.status(200).json(datos);
+}
+
+apiCtrl.eliminarPlanta = async (req, res) => {
+
+    console.log(req.body);
+
+    dbCtrl.eliminarPlanta(req.body.id);
+
+}
 
 
 // apiCtrl.buscarRegion = async (req, res) => {

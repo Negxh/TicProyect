@@ -8,8 +8,8 @@ function filtrarPorHora(hour) {
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
 
-    // let hora1 = hours + ":" + minutes;
-    let hora1 = "14:00";
+    let hora1 = hours + ":" + minutes;
+    // let hora1 = "14:00";
     const date1 = new Date(`01/01/2000 ${hora1}`);
 
     for (let i = 7; i >= 0; i--) {
@@ -31,4 +31,7 @@ function filtrarPorHora(hour) {
 }
 
 
-module.exports = filtrarPorHora;
+// const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+
+module.exports = {filtrarPorHora};
